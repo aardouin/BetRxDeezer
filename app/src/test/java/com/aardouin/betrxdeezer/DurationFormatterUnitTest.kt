@@ -14,11 +14,11 @@ class DurationFormatterUnitTest {
 
     @Test
     fun formattedDuration_isCorrect(){
-        assertEquals("00:00",DurationFormatter.formattedDuration(null))
-        assertEquals("00:00",DurationFormatter.formattedDuration(45))
-        assertEquals("00:01",DurationFormatter.formattedDuration(60))
-        assertEquals("01:00",DurationFormatter.formattedDuration(3600))
-        assertEquals("01:01",DurationFormatter.formattedDuration(3660))
-        assertEquals("13:00",DurationFormatter.formattedDuration(46800))
+        assertEquals("00:00:00",DurationFormatter.formattedDuration(null))
+        assertEquals("00:00:45",DurationFormatter.formattedDuration(45))
+        assertEquals("00:01:00",DurationFormatter.formattedDuration(60))
+        assertEquals("01:00:00",DurationFormatter.formattedDuration(3600))
+        assertEquals("01:01:00",DurationFormatter.formattedDuration(3660))
+        assertEquals("13:01:20",DurationFormatter.formattedDuration(46880))
     }
 }
