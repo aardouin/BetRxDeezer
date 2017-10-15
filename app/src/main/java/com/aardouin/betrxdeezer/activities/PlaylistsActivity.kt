@@ -9,6 +9,7 @@ import com.aardouin.betrxdeezer.R
 import com.aardouin.betrxdeezer.adapters.PlaylistAdapter
 import com.aardouin.betrxdeezer.databinding.PlaylistsActivityBinding
 import com.aardouin.betrxdeezer.extensions.appendItems
+import com.aardouin.betrxdeezer.network.ApiController
 import com.aardouin.betrxdeezer.extensions.scrollToBottomEvents
 import com.aardouin.betrxdeezer.viewmodels.PlaylistsViewModel
 import com.github.stephenvinouze.advancedrecyclerview_core.callbacks.ClickCallback
@@ -44,7 +45,7 @@ class PlaylistsActivity : RxAppCompatActivity() {
             }
         }
 
-        playlistsViewModel = PlaylistsViewModel()
+        playlistsViewModel = PlaylistsViewModel(ApiController.playlistApi)
         binding.viewModel = playlistsViewModel
 
         playlists_recycler.scrollToBottomEvents()
@@ -54,11 +55,11 @@ class PlaylistsActivity : RxAppCompatActivity() {
         fetchNextPlaylists()
     }
 
-    fun fetchNextPlaylists(){
+    private fun fetchNextPlaylists(){
         playlistsViewModel.fetchPlaylists()
-                .bindToLifecycle(this)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                ?.bindToLifecycle(this)
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe {
                     playlistAdapter.isLoadingEnabled = !playlistsViewModel.hasFinishedLoading
                     playlistAdapter.appendItems(it)
                 }

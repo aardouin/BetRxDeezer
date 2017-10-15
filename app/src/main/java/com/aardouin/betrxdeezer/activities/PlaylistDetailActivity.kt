@@ -11,6 +11,7 @@ import com.aardouin.betrxdeezer.extensions.appendItems
 import com.aardouin.betrxdeezer.extensions.scrollToBottomEvents
 import com.aardouin.betrxdeezer.extensions.show
 import com.aardouin.betrxdeezer.models.Playlist
+import com.aardouin.betrxdeezer.network.ApiController
 import com.aardouin.betrxdeezer.viewmodels.PlaylistDetailViewModel
 import com.f2prateek.dart.Dart
 import com.f2prateek.dart.InjectExtra
@@ -57,7 +58,7 @@ class PlaylistDetailActivity : RxAppCompatActivity() {
         playlist_detail_track_recycler.adapter = trackAdapter
         playlist_detail_track_recycler.layoutManager = LinearLayoutManager(this)
 
-        playlistsViewModel = PlaylistDetailViewModel(playlist)
+        playlistsViewModel = PlaylistDetailViewModel(playlist,ApiController.playlistApi)
         binding.viewModel = playlistsViewModel
 
         playlist_detail_track_recycler.scrollToBottomEvents()

@@ -13,7 +13,7 @@ import org.junit.Assert.*
 class DurationFormatterUnitTest {
 
     @Test
-    fun formattedDuration_isCorrect(){
+    fun testFormattedDuration(){
         assertEquals("00:00:00",DurationFormatter.formattedDuration(null))
         assertEquals("00:00:45",DurationFormatter.formattedDuration(45))
         assertEquals("00:01:00",DurationFormatter.formattedDuration(60))

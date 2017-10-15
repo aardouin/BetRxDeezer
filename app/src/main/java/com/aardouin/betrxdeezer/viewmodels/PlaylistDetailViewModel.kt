@@ -7,6 +7,7 @@ import com.aardouin.betrxdeezer.formatters.DurationFormatter.formattedDuration
 import com.aardouin.betrxdeezer.models.Playlist
 import com.aardouin.betrxdeezer.models.Track
 import com.aardouin.betrxdeezer.network.ApiController
+import com.aardouin.betrxdeezer.network.PlaylistAPI
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
  */
 
 
-class PlaylistDetailViewModel(val playlist: Playlist) : BaseObservable() {
+class PlaylistDetailViewModel(val playlist: Playlist, private val playlistAPI: PlaylistAPI) : BaseObservable() {
 
     fun coverUrl(): String? = playlist.pictureXl
     fun title(): String? = playlist.title
@@ -25,15 +26,13 @@ class PlaylistDetailViewModel(val playlist: Playlist) : BaseObservable() {
     var hasFinishedLoading = false
 
     fun fetchTracks(): Observable<List<Track>>? {
-        if( !hasFinishedLoading) {
-            return ApiController.playlistApi.getPlaylistTracks(playlist.id, currentIndex)
+        if(hasFinishedLoading) return null
+        return playlistAPI.getPlaylistTracks(playlist.id, currentIndex)
                     .subscribeOn(Schedulers.io())
                     .doOnNext {
                         hasFinishedLoading = it.data.isEmpty()
                         currentIndex += it.data.size
                     }
                     .map { it.data }
-        }
-        return null
     }
 }
