@@ -8,6 +8,8 @@ import com.aardouin.betrxdeezer.Henson
 import com.aardouin.betrxdeezer.R
 import com.aardouin.betrxdeezer.adapters.PlaylistAdapter
 import com.aardouin.betrxdeezer.databinding.PlaylistsActivityBinding
+import com.aardouin.betrxdeezer.extensions.appendItems
+import com.aardouin.betrxdeezer.extensions.scrollToBottomEvents
 import com.aardouin.betrxdeezer.viewmodels.PlaylistsViewModel
 import com.github.stephenvinouze.advancedrecyclerview_core.callbacks.ClickCallback
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
@@ -32,8 +34,8 @@ class PlaylistsActivity : RxAppCompatActivity() {
         setSupportActionBar(playlists_toolbar)
         val layoutManager = GridLayoutManager(this, 3)
         playlistAdapter = PlaylistAdapter(this)
-        recyclerview.layoutManager = layoutManager
-        recyclerview.adapter = playlistAdapter
+        playlists_recycler.layoutManager = layoutManager
+        playlists_recycler.adapter = playlistAdapter
 
         playlistAdapter.clickCallback = object : ClickCallback() {
             override fun onItemClick(view: View, position: Int) {
@@ -45,11 +47,20 @@ class PlaylistsActivity : RxAppCompatActivity() {
         playlistsViewModel = PlaylistsViewModel()
         binding.viewModel = playlistsViewModel
 
-        playlistsViewModel.fetchPlaylists()
-                .observeOn(AndroidSchedulers.mainThread())
-                .bindToLifecycle(this)
+        playlists_recycler.scrollToBottomEvents()
                 .subscribe {
-                    playlistAdapter.addItems(it.toMutableList(), 0)
+                    fetchNextPlaylists()
+                }
+        fetchNextPlaylists()
+    }
+
+    fun fetchNextPlaylists(){
+        playlistsViewModel.fetchPlaylists()
+                .bindToLifecycle(this)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    playlistAdapter.isLoadingEnabled = !playlistsViewModel.hasFinishedLoading
+                    playlistAdapter.appendItems(it)
                 }
     }
 }

@@ -6,6 +6,7 @@ import com.aardouin.betrxdeezer.network.responses.BaseResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 /**
@@ -15,12 +16,12 @@ import retrofit2.http.Path
 interface PlaylistAPI {
 
     @GET("/user/{userId}/playlists")
-    fun getUserPlaylists(@Path("userId") userId: Int): Observable<BaseResponse<List<Playlist>>>
+    fun getUserPlaylists(@Path("userId") userId: Int, @Query("index") index: Int = 0): Observable<BaseResponse<List<Playlist>>>
 
     @GET("/playlist/{playlistId}")
     fun getPlaylistInfo(@Path("playlistId") playlistId: Long): Observable<BaseResponse<Playlist>>
 
     @GET("/playlist/{playlistId}/tracks")
-    fun getPlaylistTracks(@Path("playlistId") playlistId: Long): Observable<BaseResponse<List<Track>>>
+    fun getPlaylistTracks(@Path("playlistId") playlistId: Long, @Query("index") index: Int = 0): Observable<BaseResponse<List<Track>>>
 
 }

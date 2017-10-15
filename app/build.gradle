@@ -68,6 +68,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "com.android.support:design:$appcompat_version"
     compile 'com.facebook.fresco:fresco:1.5.0'
+    compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:2.0.0'
+
 
     //Navigation
     compile "com.f2prateek.dart:dart:$dart_version"

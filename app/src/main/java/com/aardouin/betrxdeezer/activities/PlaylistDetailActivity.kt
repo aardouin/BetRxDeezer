@@ -7,6 +7,8 @@ import android.view.MenuItem
 import com.aardouin.betrxdeezer.R
 import com.aardouin.betrxdeezer.adapters.TrackAdapter
 import com.aardouin.betrxdeezer.databinding.PlaylistDetailActivityBinding
+import com.aardouin.betrxdeezer.extensions.appendItems
+import com.aardouin.betrxdeezer.extensions.scrollToBottomEvents
 import com.aardouin.betrxdeezer.extensions.show
 import com.aardouin.betrxdeezer.models.Playlist
 import com.aardouin.betrxdeezer.viewmodels.PlaylistDetailViewModel
@@ -16,6 +18,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.playlist_detail_activity.*
+
 
 /**
  * Created by WOPATA on 15/10/2017.
@@ -42,6 +45,8 @@ class PlaylistDetailActivity : RxAppCompatActivity() {
             setDisplayShowTitleEnabled(false)
         }
 
+        title = playlist.title
+
         playlist_detail_app_bar_layout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             val collapsed = Math.abs(verticalOffset) >= appBarLayout.totalScrollRange
             playlist_detail_toolbar_expanded_content.show(!collapsed)
@@ -52,16 +57,15 @@ class PlaylistDetailActivity : RxAppCompatActivity() {
         playlist_detail_track_recycler.adapter = trackAdapter
         playlist_detail_track_recycler.layoutManager = LinearLayoutManager(this)
 
-        title = playlist.title
-
         playlistsViewModel = PlaylistDetailViewModel(playlist)
         binding.viewModel = playlistsViewModel
 
-        playlistsViewModel.fetchTracks().bindToLifecycle(this)
-                .observeOn(AndroidSchedulers.mainThread())
+        playlist_detail_track_recycler.scrollToBottomEvents()
                 .subscribe {
-                    trackAdapter.addItems(it.toMutableList(), 0)
+                    fetchNextTracks()
                 }
+
+        fetchNextTracks()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -75,5 +79,14 @@ class PlaylistDetailActivity : RxAppCompatActivity() {
             }
         }
         return false
+    }
+
+    private fun fetchNextTracks() {
+        playlistsViewModel.fetchTracks()?.bindToLifecycle(this)
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe {
+                    trackAdapter.isLoadingEnabled = !playlistsViewModel.hasFinishedLoading
+                    trackAdapter.appendItems(it)
+                }
     }
 }

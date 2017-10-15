@@ -11,10 +11,16 @@ import io.reactivex.schedulers.Schedulers
  */
 
 class PlaylistsViewModel {
+    var hasFinishedLoading = false
+    private var currentIndex = 0
 
     fun fetchPlaylists(): Observable<List<Playlist>> {
-        return ApiController.playlistApi.getUserPlaylists(BuildConfig.DEEZER_USER_ID)
+        return ApiController.playlistApi.getUserPlaylists(BuildConfig.DEEZER_USER_ID,currentIndex)
                 .subscribeOn(Schedulers.io())
+                .doOnNext {
+                    hasFinishedLoading = it.data.isEmpty()
+                    currentIndex += it.data.size
+                }
                 .map { it.data }
     }
 

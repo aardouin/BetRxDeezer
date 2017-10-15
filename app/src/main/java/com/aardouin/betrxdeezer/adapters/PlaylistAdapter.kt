@@ -15,12 +15,12 @@ import com.github.stephenvinouze.advancedrecyclerview_core.adapters.RecyclerAdap
  * Created by WOPATA on 14/10/2017.
  */
 
-class PlaylistAdapter(context: Context) : RecyclerAdapter<Playlist>(context) {
-    override fun onBindItemView(v: View, position: Int) {
+class PlaylistAdapter(context: Context) : PaginationAdapter<Playlist>(context) {
+    override fun onBindMainItemView(v: View, position: Int) {
         DataBindingUtil.bind<PlaylistItemViewBinding>(v).viewModel = PlaylistItemViewModel(items[position])
     }
 
-    override fun onCreateItemView(parent: ViewGroup, viewType: Int): View {
+    override fun onCreateMainItemView(parent: ViewGroup, viewType: Int): View {
         return LayoutInflater.from(parent.context).inflate(R.layout.playlist_item_view, parent, false);
     }
 }
