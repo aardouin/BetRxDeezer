@@ -109,14 +109,15 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/scroll"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/playlist_detail_track_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="@dimen/small_spacing"
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </android.support.v4.widget.NestedScrollView>
+        </android.support.v7.widget.RecyclerView>
 
     </android.support.design.widget.CoordinatorLayout>
 

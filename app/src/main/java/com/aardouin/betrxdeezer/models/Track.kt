@@ -16,6 +16,5 @@ data class Track(
         val rank: Int,
         val explicitLyrics: Boolean,
         val preview: String,
-        val timeAdd: Int,
-        val artist: ArtistShort,
-        val album: AlbumShort)
+        val artist: Artist,
+        val album: Album)

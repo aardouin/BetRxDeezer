@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_spacing">8dp</dimen>
+    <dimen name="small_spacing">4dp</dimen>
     <dimen name="title_textsize">16sp</dimen>
     <dimen name="title_big_textsize">20sp</dimen>
     <dimen name="subtitle_textsize">14sp</dimen>
+    <dimen name="track_item_height">100dp</dimen>
 </resources>

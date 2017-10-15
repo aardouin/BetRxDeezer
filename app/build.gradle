@@ -67,9 +67,6 @@ dependencies {
     kapt "com.f2prateek.dart:dart-processor:$dart_version"
     compile "com.f2prateek.dart:henson:$dart_version"
     kapt "com.f2prateek.dart:henson-processor:$dart_version"
-
-    //Misc
-    compile 'joda-time:joda-time:2.9.9'
 }
 
 

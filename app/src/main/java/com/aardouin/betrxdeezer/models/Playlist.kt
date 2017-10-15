@@ -16,4 +16,4 @@ data class Playlist(val id: Long,
                     val pictureMedium: String,
                     val pictureBig: String,
                     val pictureXl: String,
-                    val creator: UserShort) : AutoParcelable
+                    val creator: User) : AutoParcelable

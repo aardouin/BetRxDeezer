@@ -7,6 +7,6 @@ import io.mironov.smuggler.AutoParcelable
  * Created by WOPATA on 14/10/2017.
  */
 @SuppressLint("ParcelCreator")
-data class UserShort(
+data class User(
         val id: Int,
         val name: String) : AutoParcelable
