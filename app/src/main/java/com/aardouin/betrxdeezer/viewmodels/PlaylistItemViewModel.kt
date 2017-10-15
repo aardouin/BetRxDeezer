@@ -9,7 +9,6 @@ import com.aardouin.betrxdeezer.models.Playlist
 
 class PlaylistItemViewModel(var playlist: Playlist? = null) {
 
-    fun title(): String? {
-        return playlist?.title
-    }
+    fun title(): String? = playlist?.title
+    fun imageUrl(): String? = playlist?.pictureMedium
 }
