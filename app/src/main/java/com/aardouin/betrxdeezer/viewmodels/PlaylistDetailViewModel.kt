@@ -6,7 +6,6 @@ import com.aardouin.betrxdeezer.R
 import com.aardouin.betrxdeezer.formatters.DurationFormatter.formattedDuration
 import com.aardouin.betrxdeezer.models.Playlist
 import com.aardouin.betrxdeezer.models.Track
-import com.aardouin.betrxdeezer.network.ApiController
 import com.aardouin.betrxdeezer.network.PlaylistAPI
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
@@ -22,7 +21,7 @@ class PlaylistDetailViewModel(val playlist: Playlist, private val playlistAPI: P
     fun title(): String? = playlist.title
     fun user(context: Context): String? = context.getString(R.string.by_user, playlist.creator.name)
     fun playlistDescription(context: Context): String? = context.getString(R.string.playlist_description, playlist.nbTracks, formattedDuration(playlist.duration))
-    var currentIndex = 0
+    private var currentIndex = 0
     var hasFinishedLoading = false
 
     fun fetchTracks(): Observable<List<Track>>? {

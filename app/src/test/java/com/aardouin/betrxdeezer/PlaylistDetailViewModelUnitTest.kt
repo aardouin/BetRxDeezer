@@ -7,11 +7,9 @@ import com.aardouin.betrxdeezer.models.User
 import com.aardouin.betrxdeezer.network.PlaylistAPI
 import com.aardouin.betrxdeezer.network.responses.BaseResponse
 import com.aardouin.betrxdeezer.viewmodels.PlaylistDetailViewModel
-import com.aardouin.betrxdeezer.viewmodels.PlaylistsViewModel
 import com.nhaarman.mockito_kotlin.doAnswer
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Observable
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers

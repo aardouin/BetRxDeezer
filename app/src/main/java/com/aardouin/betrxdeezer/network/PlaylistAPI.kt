@@ -18,9 +18,6 @@ interface PlaylistAPI {
     @GET("/user/{userId}/playlists")
     fun getUserPlaylists(@Path("userId") userId: Int, @Query("index") index: Int = 0): Observable<BaseResponse<List<Playlist>>>
 
-    @GET("/playlist/{playlistId}")
-    fun getPlaylistInfo(@Path("playlistId") playlistId: Long): Observable<BaseResponse<Playlist>>
-
     @GET("/playlist/{playlistId}/tracks")
     fun getPlaylistTracks(@Path("playlistId") playlistId: Long, @Query("index") index: Int = 0): Observable<BaseResponse<List<Track>>>
 
