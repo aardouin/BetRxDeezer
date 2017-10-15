@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="playlist_track_count">
+        <item quantity="zero">@string/playlist_track_zero</item>
+        <item quantity="one">@string/playlist_track_one</item>
+        <item quantity="other">@string/playlist_track_other</item>
+    </plurals>
+</resources>

@@ -44,6 +44,30 @@ class PlaylistDetailViewModelUnitTest {
     private val user = mock<User>{
         on {name} doReturn "Username"
     }
+
+    private val playlistSingleTrack = mock<Playlist> {
+        on {title} doReturn "title"
+        on {creator} doReturn user
+        on {nbTracks} doReturn 1
+        on {duration} doReturn 120
+        on {pictureSmall} doReturn "http://imageSmall.png"
+        on {pictureMedium} doReturn "http://imageMedium.png"
+        on {pictureBig} doReturn "http://imageBig.png"
+        on {pictureXl} doReturn "http://imageXl.png"
+    }
+
+
+    private val playlistNoTrack = mock<Playlist> {
+        on {title} doReturn "title"
+        on {creator} doReturn user
+        on {nbTracks} doReturn 0
+        on {duration} doReturn 0
+        on {pictureSmall} doReturn "http://imageSmall.png"
+        on {pictureMedium} doReturn "http://imageMedium.png"
+        on {pictureBig} doReturn "http://imageBig.png"
+        on {pictureXl} doReturn "http://imageXl.png"
+    }
+
     private val playlist = mock<Playlist> {
         on {title} doReturn "title"
         on {creator} doReturn user
@@ -80,12 +104,30 @@ class PlaylistDetailViewModelUnitTest {
     }
 
     @Test
-    fun testDataBinding() {
+    fun testDataBindingNominal() {
         val viewModel = PlaylistDetailViewModel(playlist,mock{})
         assertEquals("title", viewModel.title())
         assertEquals("http://imageXl.png", viewModel.coverUrl())
         assertEquals("by Username", viewModel.user(context))
         assertEquals("100 tracks - 00:03:00", viewModel.playlistDescription(context))
+    }
+
+    @Test
+    fun testDataBindingSingleTrack() {
+        val viewModel = PlaylistDetailViewModel(playlistSingleTrack,mock{})
+        assertEquals("title", viewModel.title())
+        assertEquals("http://imageXl.png", viewModel.coverUrl())
+        assertEquals("by Username", viewModel.user(context))
+        assertEquals("1 track - 00:02:00", viewModel.playlistDescription(context))
+    }
+
+    @Test
+    fun testDataBindingNoTracks() {
+        val viewModel = PlaylistDetailViewModel(playlistNoTrack,mock{})
+        assertEquals("title", viewModel.title())
+        assertEquals("http://imageXl.png", viewModel.coverUrl())
+        assertEquals("by Username", viewModel.user(context))
+        assertEquals("no track - 00:00:00", viewModel.playlistDescription(context))
     }
 
     @Test
