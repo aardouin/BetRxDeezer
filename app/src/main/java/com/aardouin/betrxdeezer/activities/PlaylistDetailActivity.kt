@@ -2,7 +2,6 @@ package com.aardouin.betrxdeezer.activities
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.aardouin.betrxdeezer.R
@@ -13,6 +12,8 @@ import com.aardouin.betrxdeezer.models.Playlist
 import com.aardouin.betrxdeezer.viewmodels.PlaylistDetailViewModel
 import com.f2prateek.dart.Dart
 import com.f2prateek.dart.InjectExtra
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
+import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.playlist_detail_activity.*
 
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.playlist_detail_activity.*
  * Created by WOPATA on 15/10/2017.
  */
 
-class PlaylistDetailActivity : AppCompatActivity() {
+class PlaylistDetailActivity : RxAppCompatActivity() {
 
     private lateinit var playlistsViewModel: PlaylistDetailViewModel
     private lateinit var binding: PlaylistDetailActivityBinding
@@ -56,8 +57,8 @@ class PlaylistDetailActivity : AppCompatActivity() {
         playlistsViewModel = PlaylistDetailViewModel(playlist)
         binding.viewModel = playlistsViewModel
 
-
-        playlistsViewModel.fetchTracks().observeOn(AndroidSchedulers.mainThread())
+        playlistsViewModel.fetchTracks().bindToLifecycle(this)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     trackAdapter.addItems(it.toMutableList(), 0)
                 }
@@ -72,7 +73,6 @@ class PlaylistDetailActivity : AppCompatActivity() {
                 onBackPressed()
                 return true
             }
-
         }
         return false
     }
