@@ -9,7 +9,7 @@ import com.facebook.drawee.view.SimpleDraweeView
  */
 
 
-@BindingAdapter("app:imageUrl")
-fun loadImage(view: SimpleDraweeView, imageUrl: String) {
+@BindingAdapter("imageUrl")
+fun loadImage(view: SimpleDraweeView, imageUrl: String?) {
     view.setImageURI(imageUrl)
 }

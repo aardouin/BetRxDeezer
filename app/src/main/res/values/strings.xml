@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BetRxDeezer</string>
+    <string name="by_user">by %s</string>
+    <string name="playlist_description">%d tracks - %s</string>
 </resources>

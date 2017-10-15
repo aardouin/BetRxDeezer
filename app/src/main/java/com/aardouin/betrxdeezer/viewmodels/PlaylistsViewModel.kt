@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers
  * Created by WOPATA on 14/10/2017.
  */
 
-class MainViewModel {
+class PlaylistsViewModel {
 
     fun fetchPlaylists(): Observable<List<Playlist>> {
         return ApiController.playlistApi.getUserPlaylists(BuildConfig.DEEZER_USER_ID)
