@@ -58,7 +58,7 @@ class PlaylistDetailActivity : RxAppCompatActivity() {
         playlist_detail_track_recycler.adapter = trackAdapter
         playlist_detail_track_recycler.layoutManager = LinearLayoutManager(this)
 
-        playlistsViewModel = PlaylistDetailViewModel(playlist,ApiController.playlistApi)
+        playlistsViewModel = PlaylistDetailViewModel(playlist, ApiController.playlistApi)
         binding.viewModel = playlistsViewModel
 
         playlist_detail_track_recycler.scrollToBottomEvents()

@@ -41,42 +41,42 @@ class PlaylistDetailViewModelUnitTest {
     private val multiElementList = arrayListOf<Track>()
     private lateinit var multiElementResponse: BaseResponse<List<Track>>
 
-    private val user = mock<User>{
-        on {name} doReturn "Username"
+    private val user = mock<User> {
+        on { name } doReturn "Username"
     }
 
     private val playlistSingleTrack = mock<Playlist> {
-        on {title} doReturn "title"
-        on {creator} doReturn user
-        on {nbTracks} doReturn 1
-        on {duration} doReturn 120
-        on {pictureSmall} doReturn "http://imageSmall.png"
-        on {pictureMedium} doReturn "http://imageMedium.png"
-        on {pictureBig} doReturn "http://imageBig.png"
-        on {pictureXl} doReturn "http://imageXl.png"
+        on { title } doReturn "title"
+        on { creator } doReturn user
+        on { nbTracks } doReturn 1
+        on { duration } doReturn 120
+        on { pictureSmall } doReturn "http://imageSmall.png"
+        on { pictureMedium } doReturn "http://imageMedium.png"
+        on { pictureBig } doReturn "http://imageBig.png"
+        on { pictureXl } doReturn "http://imageXl.png"
     }
 
 
     private val playlistNoTrack = mock<Playlist> {
-        on {title} doReturn "title"
-        on {creator} doReturn user
-        on {nbTracks} doReturn 0
-        on {duration} doReturn 0
-        on {pictureSmall} doReturn "http://imageSmall.png"
-        on {pictureMedium} doReturn "http://imageMedium.png"
-        on {pictureBig} doReturn "http://imageBig.png"
-        on {pictureXl} doReturn "http://imageXl.png"
+        on { title } doReturn "title"
+        on { creator } doReturn user
+        on { nbTracks } doReturn 0
+        on { duration } doReturn 0
+        on { pictureSmall } doReturn "http://imageSmall.png"
+        on { pictureMedium } doReturn "http://imageMedium.png"
+        on { pictureBig } doReturn "http://imageBig.png"
+        on { pictureXl } doReturn "http://imageXl.png"
     }
 
     private val playlist = mock<Playlist> {
-        on {title} doReturn "title"
-        on {creator} doReturn user
-        on {nbTracks} doReturn 100
-        on {duration} doReturn 180
-        on {pictureSmall} doReturn "http://imageSmall.png"
-        on {pictureMedium} doReturn "http://imageMedium.png"
-        on {pictureBig} doReturn "http://imageBig.png"
-        on {pictureXl} doReturn "http://imageXl.png"
+        on { title } doReturn "title"
+        on { creator } doReturn user
+        on { nbTracks } doReturn 100
+        on { duration } doReturn 180
+        on { pictureSmall } doReturn "http://imageSmall.png"
+        on { pictureMedium } doReturn "http://imageMedium.png"
+        on { pictureBig } doReturn "http://imageBig.png"
+        on { pictureXl } doReturn "http://imageXl.png"
     }
 
     private val context: Context
@@ -105,7 +105,7 @@ class PlaylistDetailViewModelUnitTest {
 
     @Test
     fun testDataBindingNominal() {
-        val viewModel = PlaylistDetailViewModel(playlist,mock{})
+        val viewModel = PlaylistDetailViewModel(playlist, mock {})
         assertEquals("title", viewModel.title())
         assertEquals("http://imageXl.png", viewModel.coverUrl())
         assertEquals("by Username", viewModel.user(context))
@@ -114,7 +114,7 @@ class PlaylistDetailViewModelUnitTest {
 
     @Test
     fun testDataBindingSingleTrack() {
-        val viewModel = PlaylistDetailViewModel(playlistSingleTrack,mock{})
+        val viewModel = PlaylistDetailViewModel(playlistSingleTrack, mock {})
         assertEquals("title", viewModel.title())
         assertEquals("http://imageXl.png", viewModel.coverUrl())
         assertEquals("by Username", viewModel.user(context))
@@ -123,7 +123,7 @@ class PlaylistDetailViewModelUnitTest {
 
     @Test
     fun testDataBindingNoTracks() {
-        val viewModel = PlaylistDetailViewModel(playlistNoTrack,mock{})
+        val viewModel = PlaylistDetailViewModel(playlistNoTrack, mock {})
         assertEquals("title", viewModel.title())
         assertEquals("http://imageXl.png", viewModel.coverUrl())
         assertEquals("by Username", viewModel.user(context))
@@ -135,14 +135,15 @@ class PlaylistDetailViewModelUnitTest {
 
         val playlistAPI = mock<PlaylistAPI> {
             on { getPlaylistTracks(anyLong(), anyInt()) } doAnswer {
-                when(it.arguments[1]){
-                    0-> Observable.just(oneElementResponse)
+                when (it.arguments[1]) {
+                    0 -> Observable.just(oneElementResponse)
                     else -> Observable.just(emptyResponse)
 
-                }}
+                }
+            }
         }
 
-        val viewModel = PlaylistDetailViewModel(playlist,playlistAPI)
+        val viewModel = PlaylistDetailViewModel(playlist, playlistAPI)
         var test = viewModel.fetchTracks()!!.test()
 
         test.assertComplete()
@@ -158,20 +159,20 @@ class PlaylistDetailViewModelUnitTest {
     }
 
 
-
     @Test
     fun testMultiplePages() {
 
         val playlistAPI = mock<PlaylistAPI> {
-            on { getPlaylistTracks(anyLong(), anyInt()) }doAnswer {
-                when(it.arguments[1]){
-                    in 0..41-> Observable.just(multiElementResponse)
+            on { getPlaylistTracks(anyLong(), anyInt()) } doAnswer {
+                when (it.arguments[1]) {
+                    in 0..41 -> Observable.just(multiElementResponse)
                     else -> Observable.just(emptyResponse)
 
-                }}
+                }
+            }
         }
 
-        val viewModel = PlaylistDetailViewModel(playlist,playlistAPI)
+        val viewModel = PlaylistDetailViewModel(playlist, playlistAPI)
         var test = viewModel.fetchTracks()!!.test()
 
         test.assertComplete()
@@ -199,7 +200,7 @@ class PlaylistDetailViewModelUnitTest {
             on { getPlaylistTracks(anyLong(), ArgumentMatchers.eq(0)) } doReturn Observable.just(emptyResponse)
         }
 
-        val viewModel = PlaylistDetailViewModel(playlist,playlistAPI)
+        val viewModel = PlaylistDetailViewModel(playlist, playlistAPI)
         val test = viewModel.fetchTracks()!!.test()
 
         test.assertComplete()

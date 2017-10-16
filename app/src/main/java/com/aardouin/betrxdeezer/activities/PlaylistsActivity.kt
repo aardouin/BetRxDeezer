@@ -9,8 +9,8 @@ import com.aardouin.betrxdeezer.R
 import com.aardouin.betrxdeezer.adapters.PlaylistAdapter
 import com.aardouin.betrxdeezer.databinding.PlaylistsActivityBinding
 import com.aardouin.betrxdeezer.extensions.appendItems
-import com.aardouin.betrxdeezer.network.ApiController
 import com.aardouin.betrxdeezer.extensions.scrollToBottomEvents
+import com.aardouin.betrxdeezer.network.ApiController
 import com.aardouin.betrxdeezer.viewmodels.PlaylistsViewModel
 import com.github.stephenvinouze.advancedrecyclerview_core.callbacks.ClickCallback
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
@@ -55,7 +55,7 @@ class PlaylistsActivity : RxAppCompatActivity() {
         fetchNextPlaylists()
     }
 
-    private fun fetchNextPlaylists(){
+    private fun fetchNextPlaylists() {
         playlistsViewModel.fetchPlaylists()
                 ?.bindToLifecycle(this)
                 ?.observeOn(AndroidSchedulers.mainThread())

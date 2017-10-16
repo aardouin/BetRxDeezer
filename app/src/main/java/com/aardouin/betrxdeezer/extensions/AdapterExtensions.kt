@@ -6,6 +6,6 @@ import com.github.stephenvinouze.advancedrecyclerview_core.adapters.RecyclerAdap
  * Created by WOPATA on 15/10/2017.
  */
 
-fun <T>RecyclerAdapter<T>.appendItems(itemsToAdd : Collection<T>){
-    addItems(itemsToAdd.toMutableList(),items.size)
+fun <T> RecyclerAdapter<T>.appendItems(itemsToAdd: Collection<T>) {
+    addItems(itemsToAdd.toMutableList(), items.size)
 }

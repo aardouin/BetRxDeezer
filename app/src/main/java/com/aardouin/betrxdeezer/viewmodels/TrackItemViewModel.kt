@@ -10,7 +10,7 @@ import com.aardouin.betrxdeezer.models.Track
 
 class TrackItemViewModel(var track: Track? = null) {
     fun title(): String? = track?.title
-    fun imageUrl() : String? = track?.album?.coverMedium
-    fun description() : String? = "${track?.artist?.name} - ${track?.album?.title}"
-    fun duration() : String? = DurationFormatter.formattedDuration(track?.duration)
+    fun imageUrl(): String? = track?.album?.coverMedium
+    fun description(): String? = "${track?.artist?.name} - ${track?.album?.title}"
+    fun duration(): String? = DurationFormatter.formattedDuration(track?.duration)
 }

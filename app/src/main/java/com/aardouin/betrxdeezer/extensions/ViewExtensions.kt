@@ -12,6 +12,6 @@ fun View.show(visible: Boolean, animate: Boolean = true) {
         animate().alpha(if (visible) 1f else 0f)
                 .duration = 200
     } else {
-        visibility = if( visible ) View.VISIBLE else View.GONE
+        visibility = if (visible) View.VISIBLE else View.GONE
     }
 }
